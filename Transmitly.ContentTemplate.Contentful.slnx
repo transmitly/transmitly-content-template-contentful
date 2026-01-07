@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/Transmitly.ContentTemplate.Contentful/Transmitly.ContentTemplate.Contentful.csproj" />
+  <Project Path="test/Transmitly.ContentTemplate.Contentful.Tests/Transmitly.ContentTemplate.Contentful.Tests.csproj" Id="9555acef-9fbe-427c-af5d-105f807ab5ca" />
+</Solution>
