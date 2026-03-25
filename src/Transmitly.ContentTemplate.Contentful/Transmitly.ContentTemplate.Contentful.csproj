@@ -38,10 +38,10 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.201" PrivateAssets="All" />
 		<PackageReference Include="PolySharp" Version="1.15.0" PrivateAssets="All" />
-		<PackageReference Include="System.Text.Json" Version="10.0.1" />
-		<PackageReference Include="Transmitly" Version="0.2.1" />
+		<PackageReference Include="System.Text.Json" Version="10.0.5" />
+		<PackageReference Include="Transmitly" Version="0.3.0" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
 		<Reference Include="System.Net.Http" />

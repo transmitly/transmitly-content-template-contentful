@@ -16,6 +16,25 @@ using System.Text.Json;
 using System.Threading.Tasks;
 namespace Transmitly;
 
+/// <summary>
+/// Represents Contentful credentials required to access entries.
+/// </summary>
+/// <param name="SpaceId">Contentful space identifier.</param>
+/// <param name="Token">Contentful delivery API token.</param>
+/// <param name="Environment">Optional environment name; defaults to "master".</param>
 public record ContentfulCredentials(string SpaceId, string Token, string? Environment = "master");
+
+/// <summary>
+/// Resolves Contentful credentials for the current dispatch context.
+/// </summary>
+/// <param name="ctx">Dispatch context for the outgoing message.</param>
+/// <returns>Contentful credentials to use for the request.</returns>
 public delegate Task<ContentfulCredentials> ContentfulCredentialsResolver(IDispatchCommunicationContext ctx);
+
+/// <summary>
+/// Renders template content from a Contentful entry document.
+/// </summary>
+/// <param name="ctx">Dispatch context for the outgoing message.</param>
+/// <param name="entry">Contentful entry JSON document.</param>
+/// <returns>Rendered template content, or <see langword="null" /> when no content is found.</returns>
 public delegate Task<string?> ContentfulTemplateRenderer(IDispatchCommunicationContext ctx, JsonDocument entry);

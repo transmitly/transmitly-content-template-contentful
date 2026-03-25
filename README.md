@@ -1,4 +1,4 @@
-# Transmitly.ContentTemplate.Contentful
+# Contentful Content Template Extension for Transmitly
 
 A [Transmitly](https://github.com/transmitly/transmitly) content template extensiont to enable Contentful integrations.
 

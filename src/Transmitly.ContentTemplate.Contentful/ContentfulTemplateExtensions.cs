@@ -20,15 +20,36 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Transmitly.Template.Configuration;
 namespace Transmitly;
+
 /// <summary>
-/// Extension of Transmitly base functionality <b>to be packaged and replaced with Transmitly library extensions in the future.</b>.
+/// Extension methods for registering Contentful-backed templates.
 /// </summary>
+/// <remarks>
+/// This extension is intended to be folded into the core Transmitly library in a future release.
+/// </remarks>
 public static class ContentfulTemplateExtensions
 {
+    /// <summary>
+    /// Gets or sets the default credentials resolver used when none is provided.
+    /// </summary>
     public static ContentfulCredentialsResolver? DefaultCredentialResolver { get; set; }
+
+    /// <summary>
+    /// Gets or sets the default renderer used when none is provided.
+    /// </summary>
     public static ContentfulTemplateRenderer? DefaultRenderer { get; set; }
+
+    /// <summary>
+    /// Gets or sets the default request options used when none are provided.
+    /// </summary>
     public static ContentfulRequestOptions DefaultRequestOptions { get; set; } = new();
 
+    /// <summary>
+    /// Configures the default credentials resolver using static values.
+    /// </summary>
+    /// <param name="spaceId">Contentful space identifier.</param>
+    /// <param name="apiKey">Contentful delivery API token.</param>
+    /// <param name="environment">Optional environment name; defaults to "master".</param>
     public static void UseDefaultCredentials(string spaceId, string apiKey, string environment = "master")
     {
         DefaultCredentialResolver = ctx =>
@@ -36,8 +57,16 @@ public static class ContentfulTemplateExtensions
     }
 
     /// <summary>
-    /// Extension of Transmitly base functionality <b>to be packaged and replaced with Transmitly library extensions in the future.</b>.
+    /// Registers a Contentful template by entry identifier.
     /// </summary>
+    /// <param name="templates">Template configuration to update.</param>
+    /// <param name="entryId">Contentful entry identifier.</param>
+    /// <param name="creds">Optional credentials resolver.</param>
+    /// <param name="renderer">Optional renderer to extract the template from the entry.</param>
+    /// <param name="cultureInfo">Optional culture name used to prioritize locale selection.</param>
+    /// <param name="httpClientFactory">Optional HTTP client factory.</param>
+    /// <param name="requestOptions">Optional request behavior overrides.</param>
+    /// <returns>The updated template configuration.</returns>
     public static IContentTemplateConfiguration AddContentfulTemplate(
         this IContentTemplateConfiguration templates,
         string entryId,
@@ -64,8 +93,16 @@ public static class ContentfulTemplateExtensions
     }
 
     /// <summary>
-    /// Extension of Transmitly base functionality <b>to be packaged and replaced with Transmitly library extensions in the future.</b>.
+    /// Registers a Contentful template by entry identifier and field name.
     /// </summary>
+    /// <param name="templates">Template configuration to update.</param>
+    /// <param name="entryId">Contentful entry identifier.</param>
+    /// <param name="fieldName">Field name to extract from the entry.</param>
+    /// <param name="creds">Optional credentials resolver.</param>
+    /// <param name="cultureInfo">Optional culture name used to prioritize locale selection.</param>
+    /// <param name="httpClientFactory">Optional HTTP client factory.</param>
+    /// <param name="requestOptions">Optional request behavior overrides.</param>
+    /// <returns>The updated template configuration.</returns>
     public static IContentTemplateConfiguration AddContentfulTemplate(
         this IContentTemplateConfiguration templates,
         string entryId,
@@ -90,8 +127,16 @@ public static class ContentfulTemplateExtensions
     }
 
     /// <summary>
-    /// Extension of Transmitly base functionality <b>to be packaged and replaced with Transmitly library extensions in the future.</b>.
+    /// Registers a Contentful template using a context-based entry resolver.
     /// </summary>
+    /// <param name="templates">Template configuration to update.</param>
+    /// <param name="entryResolver">Resolver that returns the entry ID for the current dispatch context.</param>
+    /// <param name="creds">Optional credentials resolver.</param>
+    /// <param name="renderer">Optional renderer to extract the template from the entry.</param>
+    /// <param name="cultureInfo">Optional culture name used to prioritize locale selection.</param>
+    /// <param name="httpClientFactory">Optional HTTP client factory.</param>
+    /// <param name="requestOptions">Optional request behavior overrides.</param>
+    /// <returns>The updated template configuration.</returns>
     public static IContentTemplateConfiguration AddContentfulTemplate(
         this IContentTemplateConfiguration templates,
         Func<IDispatchCommunicationContext, string> entryResolver,
@@ -118,8 +163,16 @@ public static class ContentfulTemplateExtensions
     }
 
     /// <summary>
-    /// Extension of Transmitly base functionality <b>to be packaged and replaced with Transmitly library extensions in the future.</b>.
+    /// Registers a Contentful template using a context-based entry resolver and field name.
     /// </summary>
+    /// <param name="templates">Template configuration to update.</param>
+    /// <param name="entryResolver">Resolver that returns the entry ID for the current dispatch context.</param>
+    /// <param name="fieldName">Field name to extract from the entry.</param>
+    /// <param name="creds">Optional credentials resolver.</param>
+    /// <param name="cultureInfo">Optional culture name used to prioritize locale selection.</param>
+    /// <param name="httpClientFactory">Optional HTTP client factory.</param>
+    /// <param name="requestOptions">Optional request behavior overrides.</param>
+    /// <returns>The updated template configuration.</returns>
     public static IContentTemplateConfiguration AddContentfulTemplate(
         this IContentTemplateConfiguration templates,
         Func<IDispatchCommunicationContext, string> entryResolver,
@@ -144,8 +197,17 @@ public static class ContentfulTemplateExtensions
     }
 
     /// <summary>
-    /// Extension of Transmitly base functionality <b>to be packaged and replaced with Transmitly library extensions in the future.</b>.
+    /// Registers a Contentful template field with optional renderer fallback.
     /// </summary>
+    /// <param name="templates">Template configuration to update.</param>
+    /// <param name="entryId">Contentful entry identifier.</param>
+    /// <param name="fieldName">Field name to extract from the entry.</param>
+    /// <param name="creds">Optional credentials resolver.</param>
+    /// <param name="renderer">Optional renderer used as a fallback.</param>
+    /// <param name="cultureInfo">Optional culture name used to prioritize locale selection.</param>
+    /// <param name="httpClientFactory">Optional HTTP client factory.</param>
+    /// <param name="requestOptions">Optional request behavior overrides.</param>
+    /// <returns>The updated template configuration.</returns>
     public static IContentTemplateConfiguration AddContentfulTemplateField(
         this IContentTemplateConfiguration templates,
         string entryId,
@@ -170,8 +232,17 @@ public static class ContentfulTemplateExtensions
     }
 
     /// <summary>
-    /// Extension of Transmitly base functionality <b>to be packaged and replaced with Transmitly library extensions in the future.</b>.
+    /// Registers a Contentful template field using a context-based entry resolver.
     /// </summary>
+    /// <param name="templates">Template configuration to update.</param>
+    /// <param name="entryResolver">Resolver that returns the entry ID for the current dispatch context.</param>
+    /// <param name="fieldName">Field name to extract from the entry.</param>
+    /// <param name="creds">Optional credentials resolver.</param>
+    /// <param name="renderer">Optional renderer used as a fallback.</param>
+    /// <param name="cultureInfo">Optional culture name used to prioritize locale selection.</param>
+    /// <param name="httpClientFactory">Optional HTTP client factory.</param>
+    /// <param name="requestOptions">Optional request behavior overrides.</param>
+    /// <returns>The updated template configuration.</returns>
     public static IContentTemplateConfiguration AddContentfulTemplateField(
         this IContentTemplateConfiguration templates,
         Func<IDispatchCommunicationContext, string> entryResolver,

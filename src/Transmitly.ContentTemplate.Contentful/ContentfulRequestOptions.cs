@@ -18,12 +18,38 @@ using System.Threading;
 
 namespace Transmitly;
 
+/// <summary>
+/// Configures HTTP request behavior when fetching Contentful entries.
+/// </summary>
 public sealed class ContentfulRequestOptions
 {
+    /// <summary>
+    /// Gets or sets the maximum number of retry attempts for transient failures.
+    /// </summary>
     public int MaxRetries { get; set; } = 2;
+
+    /// <summary>
+    /// Gets or sets the base delay used for exponential backoff.
+    /// </summary>
     public TimeSpan BaseRetryDelay { get; set; } = TimeSpan.FromMilliseconds(200);
+
+    /// <summary>
+    /// Gets or sets the maximum delay allowed between retry attempts.
+    /// </summary>
     public TimeSpan MaxRetryDelay { get; set; } = TimeSpan.FromSeconds(2);
+
+    /// <summary>
+    /// Gets or sets a resolver for cancellation tokens per dispatch context.
+    /// </summary>
     public Func<IDispatchCommunicationContext, CancellationToken>? CancellationTokenResolver { get; set; }
+
+    /// <summary>
+    /// Gets or sets a predicate that determines whether a response should be retried.
+    /// </summary>
     public Func<HttpResponseMessage, bool>? ShouldRetryResponse { get; set; }
+
+    /// <summary>
+    /// Gets or sets a predicate that determines whether an exception should be retried.
+    /// </summary>
     public Func<Exception, bool>? ShouldRetryException { get; set; }
 }

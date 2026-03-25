@@ -23,6 +23,10 @@ using System.Threading.Tasks;
 using Transmitly.Template.Configuration;
 using Transmitly.Util;
 namespace Transmitly;
+
+/// <summary>
+/// Registers a Contentful entry as a content template source.
+/// </summary>
 public sealed class ContentfulTemplateRegistration : IContentTemplateRegistration
 {
     private const string ContentfulCdnBaseUrl = "https://cdn.contentful.com/";
@@ -64,6 +68,15 @@ public sealed class ContentfulTemplateRegistration : IContentTemplateRegistratio
     private static readonly HttpClient SharedClient = new();
 #endif
 
+    /// <summary>
+    /// Creates a registration that resolves Contentful content into a template.
+    /// </summary>
+    /// <param name="entryResolver">Resolves the Contentful entry ID for the current dispatch context.</param>
+    /// <param name="credsResolver">Resolves the Contentful credentials for the current dispatch context.</param>
+    /// <param name="renderer">Optional renderer to extract the template from the entry document.</param>
+    /// <param name="cultureInfo">Optional culture name used to prioritize locale selection.</param>
+    /// <param name="httpClientFactory">Optional factory used to create HTTP clients for requests.</param>
+    /// <param name="requestOptions">Optional request behavior overrides for retries and cancellation.</param>
     public ContentfulTemplateRegistration(
         Func<IDispatchCommunicationContext, Task<string>> entryResolver,
         ContentfulCredentialsResolver credsResolver,
@@ -80,8 +93,16 @@ public sealed class ContentfulTemplateRegistration : IContentTemplateRegistratio
         _requestOptions = requestOptions ?? new ContentfulRequestOptions();
     }
 
+    /// <summary>
+    /// Gets the culture used to prioritize Contentful locale values.
+    /// </summary>
     public CultureInfo CultureInfo { get; }
 
+    /// <summary>
+    /// Resolves the Contentful template content for the current dispatch context.
+    /// </summary>
+    /// <param name="context">Dispatch context for the outgoing message.</param>
+    /// <returns>The resolved template content, or <see langword="null" /> when none is found.</returns>
     public async Task<string?> GetContentAsync(IDispatchCommunicationContext context)
     {
         var entryId = await _entryResolver(context);
