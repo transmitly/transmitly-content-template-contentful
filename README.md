@@ -7,7 +7,6 @@ Use it anywhere Transmitly accepts a content template (email subject and bodies,
 This package is typically used alongside:
 
 - `Transmitly`
-- a Transmitly channel provider such as `Transmitly.ChannelProvider.Smtp`, `Transmitly.ChannelProvider.SendGrid`, or `Transmitly.ChannelProvider.Twilio`
 - a template engine such as `Transmitly.TemplateEngine.Fluid` or `Transmitly.TemplateEngine.Scriban`, when your Contentful content contains placeholders
 
 ## Install
