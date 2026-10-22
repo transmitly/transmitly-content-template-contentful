@@ -1,0 +1,19 @@
+name: Build and Test
+permissions:
+  contents: read
+on: 
+  workflow_dispatch:
+  push:
+    tags:
+    - "v[0-9]+.[0-9]+.[0-9]+"
+
+    paths:
+      - "src/Transmitly.ContentTemplate.Contentful/**"
+jobs:
+  build_test_deploy_channel_provider:
+    uses: transmitly/transmitly/.github/workflows/release-channel-provider.yml@main
+    with: 
+      channelProviderName: Transmitly.ContentTemplate.Contentful
+      solutionFile: Transmitly.ContentTemplate.Contentful.slnx
+    secrets: inherit
+      
