@@ -24,7 +24,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Transmitly" Version="0.4.4" />
+		<PackageReference Include="Transmitly" Version="0.4.5" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\Transmitly.ContentTemplate.Contentful\Transmitly.ContentTemplate.Contentful.csproj" />
